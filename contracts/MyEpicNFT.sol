@@ -28,6 +28,9 @@ contract MyEpicNFT is ERC721URIStorage {
   string[] firstWords = ["Big", "Small", "Huge", "Tiny", "Massive", "Mini", "Colossal", "Enormous", "Monstrous", "Microscopic","Teeny", "Minuscule"];
   string[] secondWords = ["Cat", "Dog", "Bird", "Mouse", "Horse", "Monkey", "Cow", "Gorilla", "Bull", "Bear", "Parrot", "Snake", "Rabbit"];
   string[] thirdWords = ["Tower", "House", "Mansion", "Shack", "Town", "City", "County", "Country", "Province", "State", "Village"];
+  
+  // Used for getting token ID
+  event NewEpicNFTMinted(address sender, uint256 tokenId);
 
 
   // We need to pass the name of our NFTs token and it's symbol.
@@ -70,6 +73,7 @@ contract MyEpicNFT is ERC721URIStorage {
     string memory second = pickRandomSecondWord(newItemId);
     string memory third = pickRandomThirdWord(newItemId);
     string memory combinedWord = string(abi.encodePacked(first, second, third));
+    
 
     // I concatenate it all together, and then close the <text> and <svg> tags.
     string memory finalSvg = string(abi.encodePacked(baseSvg, combinedWord, "</text></svg>"));
@@ -116,5 +120,8 @@ contract MyEpicNFT is ERC721URIStorage {
 
     // Increment the counter for when the next NFT is minted.
     _tokenIds.increment();
+    
+    // For getting token ID
+    emit NewEpicNFTMinted(msg.sender, newItemId);
   }
 }
