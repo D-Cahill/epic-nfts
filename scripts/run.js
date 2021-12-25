@@ -13,6 +13,9 @@ const main = async () => {
     txn = await nftContract.makeAnEpicNFT()
     // Wait for it to be mined.
     await txn.wait()
+
+    let count = await nftContract.getMintedTokenCount()
+    console.log(count);
   };
   
   const runMain = async () => {
